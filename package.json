@@ -1,5 +1,5 @@
 {
-  "name": "get-my-app",
+  "name": "getmyapp",
   "version": "1.0.0",
   "description": "Personal tool to work faster",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "get-my-app": "bin/index.js"
+    "getmyapp": "bin/index.js"
   },
   "dependencies": {
     "glob": "^7.2.0",

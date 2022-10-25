@@ -127,12 +127,6 @@ const buildProject = async (project) => {
   };
   await replace(options)
   renameGitignore(name)
-
-  glob.sync(`${name}/**/*`).forEach((file) => {
-    if (fs.lstatSync(file).isFile()) {
-      templateFile(file, profiler)
-    }
-  })
 }
 
 module.exports = { buildProject } 
