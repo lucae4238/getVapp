@@ -1,0 +1,23 @@
+{
+  "vendor": "valtech",
+  "name": "labs-app",
+  "version": "0.0.0",
+  "title": "MYAPP",
+  "description": "VTEX Custom App",
+  "defaultLocale": "es-AR",
+  "billingOptions": {
+      "free": true,
+      "termsURL": "",
+      "support": {
+        "url": "https://www.valtech.com/es-ar/#contact-us-form",
+        "email": "soporte.commerce@valtech.com",
+        "phone": "+541170796080"
+      },
+      "availableCountries": [
+        "*"
+      ]
+  },
+  "builders": BUILDERS,
+  "dependencies": DEPENDENCIES,
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

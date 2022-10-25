@@ -1,0 +1,21 @@
+{
+  "name": "get-my-app",
+  "version": "1.0.0",
+  "description": "Personal tool to work faster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "get-my-app": "bin/index.js"
+  },
+  "dependencies": {
+    "glob": "^7.2.0",
+    "inquirer": "^8.2.0",
+    "ncp": "^2.0.0",
+    "replace-in-file": "^6.3.5",
+    "shelljs": "^0.8.4"
+  }
+}

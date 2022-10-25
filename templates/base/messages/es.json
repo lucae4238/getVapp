@@ -1,0 +1,7 @@
+{
+  "store/loading": "Cargando...",
+  "store/greeting": "¡Hola",
+  "store/confirm": "Confirmar",
+  "store/cancel": "Cancelar",
+  "store/goBack": "Atrás"
+}

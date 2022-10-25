@@ -1,0 +1,6 @@
+{
+  "my-app": {
+    "component": "myApp",
+    "path": "/admin/app/my-app"
+  }
+}
