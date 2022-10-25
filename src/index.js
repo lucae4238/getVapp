@@ -22,16 +22,13 @@ const renameGitignore = (projectName) => {
 
 const buildProject = async (project) => {
   const { name, type, additionalReactFolders } = project
+
   const dashedName = name.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
   const capitalizedCamelCase = name[0].toUpperCase() + name.slice(1)
   const capitalizedName = dashedName.replace("-", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+
   const builders = {
     "messages": "1.x",
-    // "store": "0.x",
-    // "pixel": "0.x",
-    // "styles": "2.x",
-    // "admin": "0.x"
-    //node 6.x
   }
   const dependencies = {
     "vtex.styleguide": "9.x",
@@ -47,19 +44,16 @@ const buildProject = async (project) => {
     path.join(__dirname, `../templates/base`),
     name
   )
+
+
   switch (type) {
 
     case 'Empty':
       {
-        //first install base app, then install the type of app additionals (store/admin/node etc..)
         await ncp(
           path.join(__dirname, `../templates/base`),
           name
         )
-        // await ncp(
-        //   path.join(__dirname, `../templates/${tempDir}/${framework}/${lang}`),
-        //   name
-        // )
       }
       break
     case 'Admin':
@@ -126,19 +120,7 @@ const buildProject = async (project) => {
     }
   }
   const options = {
-
-    // //Single file
-    // files: 'path/to/file',
-
-    // //Multiple files
-    // files: [
-    //   'path/to/file',
-    //   'path/to/other/file',
-    // ],
-
-    //Glob(s) 
     files,
-
     //Replacement to make (string or regex) 
     from: [/MyApp/g, /MYAPP/g, /my-app/g, /myApp/g, "BUILDERS", "DEPENDENCIES"],
     to: [capitalizedCamelCase, capitalizedName, dashedName, name, JSON.stringify(builders), JSON.stringify(dependencies)],
@@ -146,11 +128,11 @@ const buildProject = async (project) => {
   await replace(options)
   renameGitignore(name)
 
-  // glob.sync(`${name}/**/*`).forEach((file) => {
-  //   if (fs.lstatSync(file).isFile()) {
-  //     templateFile(file, profiler)
-  //   }
-  // })
+  glob.sync(`${name}/**/*`).forEach((file) => {
+    if (fs.lstatSync(file).isFile()) {
+      templateFile(file, profiler)
+    }
+  })
 }
 
 module.exports = { buildProject } 

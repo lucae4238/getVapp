@@ -26,6 +26,5 @@ const { buildProject } = require('../src');
       },
     }
   ])
-  console.log('answers', answers)
   buildProject(answers)
 })()
