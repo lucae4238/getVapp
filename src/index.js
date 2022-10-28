@@ -29,6 +29,7 @@ const buildProject = async (project) => {
 
   const builders = {
     "messages": "1.x",
+    "docs": "0.x"
   }
   const dependencies = {
     "vtex.styleguide": "9.x",
@@ -36,6 +37,7 @@ const buildProject = async (project) => {
   }
   const files = [
     `${name}/*.md`,
+    `${name}/docs/*.md`,
     `${name}/*.json`,
     `${name}/public/metadata/messages/*.json`,
     `${name}/public/metadata/licenses/*.md`,
@@ -56,40 +58,40 @@ const buildProject = async (project) => {
         )
       }
       break
+
     case 'Admin':
       {
         await ncp(
           path.join(__dirname, `../templates/adminBase`),
           name
         )
+
         files.push(`${name}/admin/*`)
         builders.admin = "0.x"
         break
       }
+
     case 'Service':
       {
         await ncp(
           path.join(__dirname, `../templates/nodeBase`),
           name
         )
+
+        builders.node = "6.x"
+        files.push(`${name}/node/*.json`)
+        files.push(`${name}/node/*.ts`)
+        break
       }
-      builders.node = "6.x"
-      files.push(`${name}/node/*.json`)
-      files.push(`${name}/node/*.ts`)
-      break
+
     case 'My Account Plugin':
       {
-
-        {
-          await ncp(
-            path.join(__dirname, `../templates/pluginBase`),
-            name
-          )
-        }
-
+        await ncp(
+          path.join(__dirname, `../templates/pluginBase`),
+          name
+        )
         files.push(`${name}/store/*.json`)
         files.push(`${name}/react/*.js`)
-
 
         dependencies["vtex.my-account"] = "1.x"
         dependencies["vtex.my-account-commons"] = "1.x"
@@ -103,8 +105,24 @@ const buildProject = async (project) => {
         )
         builders.store = "0.x"
         files.push(`${name}/store/*.json`)
+        break
+      }
+    case 'Pixel':
+      {
+        await ncp(
+          path.join(__dirname, `../templates/pixelBase`),
+          name
+        )
+
+        builders.store = "0.x"
+        builders.pixel = "0.x"
+        builders.react = "3.x"
+        dependencies["vtex.pixel-interfaces"] = "1.x"
+        files.push(`${name}/store/*.json`)
+        break
       }
   }
+
   if (!(['Empty', 'Service'].includes(type))) {
     builders.react = "3.x"
     await ncp(

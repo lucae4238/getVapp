@@ -14,15 +14,15 @@ const { buildProject } = require('../src');
       type: 'list',
       message: 'App Type:',
       name: 'type',
-      choices: ['Empty', 'Store', 'Admin', 'Service', 'My Account Plugin'],
+      choices: ['Store', 'Admin', 'Service', 'My Account Plugin','Pixel', 'Empty'],
       default: 'Application',
     },
     {
       type: 'confirm',
       name: 'additionalReactFolders',
-      message: 'Do you want to add additional react folders ?',
+      message: 'Do you want additional React folders?',
       when: function (answers) {
-        return !(['Empty', 'Service'].includes(answers.type))
+        return !(['Empty', 'Service', 'Pixel'].includes(answers.type))
       },
     }
   ])
