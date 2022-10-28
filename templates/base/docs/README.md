@@ -1,6 +1,6 @@
 # MYAPP
 
-**What does myApp do?** 
+**What does MYAPP do?** 
 
 Write a brief definition of your app.
 
