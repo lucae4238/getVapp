@@ -1,8 +1,10 @@
 const util = require('util')
 const fs = require('fs')
 const path = require('path')
-const ncp = util.promisify(require('ncp').ncp)
-const replace = require('replace-in-file');
+const ncp = util.promisify(require('ncp').ncp) //install files
+const replace = require('replace-in-file'); //replace myApp -> actual app name
+const fmtjson = require('fmtjson') //formating
+ 
 
 
 // dynamicProduct (camelCase)
@@ -144,6 +146,11 @@ const buildProject = async (project) => {
     to: [capitalizedCamelCase, capitalizedName, dashedName, name, JSON.stringify(builders), JSON.stringify(dependencies)],
   };
   await replace(options)
+ await fmtjson([
+`./${name}/manifest.json`
+], {
+  sort: false,
+})
   renameGitignore(name)
 }
 
