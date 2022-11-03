@@ -6,9 +6,9 @@ const { buildProject } = require('../src');
   const answers = await inquirer.prompt([
     {
       type: 'input',
-      message: 'Pick the name of your app (camelCase):',
+      message: 'Pick the name of your app (dash-case):',
       name: 'name',
-      default: 'myApp',
+      default: 'my-app',
     },
     {
       type: 'list',
