@@ -26,4 +26,4 @@ NOTES:
 | Service App (Node) 	|   	| Service App template (middleware & clients folders, service.json & index.ts)             	|
 | Admin App          	|   	| Admin folder (navigation & routes.json) + React folder                                   	|
 
- All templates except Empty, Pixel and Node may add `Additional React folders`, which adds the following folders: assets, context, graphql, hooks, iconLibreary, utils
+ All templates except Empty, Pixel and Node may add `Additional React folders`, which adds the following folders: assets, context, graphql, hooks, iconLibrary, utils
