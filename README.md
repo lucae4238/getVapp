@@ -1,10 +1,10 @@
-# GETVAPP
+# CREATE VT APP
 
 NOTE: This app is private / personal use and shouldn't be used by anyone else
 
 ## How to use
 
-Simply run `npx createvapp` in the desired directory
+Simply run `npx create-vt-app` in the desired directory
 
 <br/>
 <br/>
