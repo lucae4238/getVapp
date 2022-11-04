@@ -28,7 +28,7 @@ const buildProject = async (project) => {
   const camelCase = name .split('-') .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1));
   const dashedName = name
   const capitalizedCamelCase = camelCase[0].toUpperCase() + camelCase.slice(1)
-  const capitalizedName = dashedName.replace("-", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+  const capitalizedName = dashedName.split("-").map(item => item[0].toUpperCase() + item.slice(1)).join(" ")
 
   const builders = {
     "messages": "1.x",
@@ -39,15 +39,15 @@ const buildProject = async (project) => {
     "vtex.css-handles": "0.x",
   }
   const files = [
-    `${camelCase}/*.md`,
-    `${camelCase}/docs/*.md`,
-    `${camelCase}/*.json`,
-    `${camelCase}/public/metadata/messages/*.json`,
-    `${camelCase}/public/metadata/licenses/*.md`,
+    `${capitalizedName}/*.md`,
+    `${capitalizedName}/docs/*.md`,
+    `${capitalizedName}/*.json`,
+    `${capitalizedName}/public/metadata/messages/*.json`,
+    `${capitalizedName}/public/metadata/licenses/*.md`,
   ]
   await ncp(
     path.join(__dirname, `../templates/base`),
-    camelCase
+    capitalizedName
   )
 
 
@@ -57,7 +57,7 @@ const buildProject = async (project) => {
       {
         await ncp(
           path.join(__dirname, `../templates/base`),
-          camelCase
+          capitalizedName
         )
       }
       break
@@ -66,10 +66,10 @@ const buildProject = async (project) => {
       {
         await ncp(
           path.join(__dirname, `../templates/adminBase`),
-          camelCase
+          capitalizedName
         )
 
-        files.push(`${camelCase}/admin/*`)
+        files.push(`${capitalizedName}/admin/*`)
         builders.admin = "0.x"
         break
       }
@@ -78,12 +78,12 @@ const buildProject = async (project) => {
       {
         await ncp(
           path.join(__dirname, `../templates/nodeBase`),
-          camelCase
+          capitalizedName
         )
 
         builders.node = "6.x"
-        files.push(`${camelCase}/node/*.json`)
-        files.push(`${camelCase}/node/*.ts`)
+        files.push(`${capitalizedName}/node/*.json`)
+        files.push(`${capitalizedName}/node/*.ts`)
         break
       }
 
@@ -91,10 +91,10 @@ const buildProject = async (project) => {
       {
         await ncp(
           path.join(__dirname, `../templates/pluginBase`),
-          camelCase
+          capitalizedName
         )
-        files.push(`${camelCase}/store/*.json`)
-        files.push(`${camelCase}/react/*.js`)
+        files.push(`${capitalizedName}/store/*.json`)
+        files.push(`${capitalizedName}/react/*.js`)
 
         dependencies["vtex.my-account"] = "1.x"
         dependencies["vtex.my-account-commons"] = "1.x"
@@ -104,24 +104,24 @@ const buildProject = async (project) => {
       {
         await ncp(
           path.join(__dirname, `../templates/storeBase`),
-          camelCase
+          capitalizedName
         )
         builders.store = "0.x"
-        files.push(`${camelCase}/store/*.json`)
+        files.push(`${capitalizedName}/store/*.json`)
         break
       }
     case 'Pixel':
       {
         await ncp(
           path.join(__dirname, `../templates/pixelBase`),
-          camelCase
+          capitalizedName
         )
 
         builders.store = "0.x"
         builders.pixel = "0.x"
         builders.react = "3.x"
         dependencies["vtex.pixel-interfaces"] = "1.x"
-        files.push(`${camelCase}/store/*.json`)
+        files.push(`${capitalizedName}/store/*.json`)
         break
       }
   }
@@ -130,13 +130,13 @@ const buildProject = async (project) => {
     builders.react = "3.x"
     await ncp(
       path.join(__dirname, `../templates/reactBase`),
-      camelCase
+      capitalizedName
     )
 
     if (additionalReactFolders) {
       await ncp(
         path.join(__dirname, `../templates/advancedReactFolders`),
-        camelCase
+        capitalizedName
       )
     }
   }
@@ -148,11 +148,11 @@ const buildProject = async (project) => {
   };
   await replace(options)
  await fmtjson([
-`./${camelCase}/manifest.json`
+`./${capitalizedName}/manifest.json`
 ], {
   sort: false,
 })
-  renameGitignore(camelCase)
+  renameGitignore(capitalizedName)
 }
 
 module.exports = { buildProject } 
