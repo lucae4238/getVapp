@@ -4,7 +4,9 @@ const path = require('path')
 const ncp = util.promisify(require('ncp').ncp) //install files
 const replace = require('replace-in-file'); //replace myApp -> actual app name
 const fmtjson = require('fmtjson') //formating
- 
+const chalk = require('chalk');
+const warning = chalk.magenta; // Orange color
+
 
 
 // dynamicProduct (camelCase)
@@ -25,7 +27,7 @@ const renameGitignore = (projectName) => {
 const buildProject = async (project) => {
   const { name, type, additionalReactFolders } = project
 
-  const camelCase = name .split('-') .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1));
+  const camelCase = name.split('-').reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1));
   const dashedName = name
   const capitalizedCamelCase = camelCase[0].toUpperCase() + camelCase.slice(1)
   const capitalizedName = dashedName.split("-").map(item => item[0].toUpperCase() + item.slice(1)).join(" ")
@@ -147,12 +149,13 @@ const buildProject = async (project) => {
     to: [capitalizedCamelCase, capitalizedName, dashedName, camelCase, JSON.stringify(builders), JSON.stringify(dependencies)],
   };
   await replace(options)
- await fmtjson([
-`./${capitalizedName}/manifest.json`
-], {
-  sort: false,
-})
+  await fmtjson([
+    `./${capitalizedName}/manifest.json`
+  ], {
+    sort: false,
+  })
   renameGitignore(capitalizedName)
+  console.log(`\n Done! We suggest that you begin typing: \n \n -${warning('cd')} ${capitalizedName} \n -${warning('code .')} \n \n`)
 }
 
 module.exports = { buildProject } 
