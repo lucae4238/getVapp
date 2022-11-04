@@ -1,6 +1,6 @@
 {
   "name": "create-vt-app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Personal tool to work faster",
   "main": "index.js",
   "scripts": {
