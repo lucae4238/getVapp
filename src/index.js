@@ -42,7 +42,7 @@ const buildProject = async (project) => {
   }
   const files = [
     `${capitalizedName}/*.md`,
-    `${capitalizedName}/docs/*.md`,
+    `${capitalizedName}/docs/README.md`,
     `${capitalizedName}/*.json`,
     `${capitalizedName}/public/metadata/messages/*.json`,
     `${capitalizedName}/public/metadata/licenses/*.md`,
@@ -61,8 +61,8 @@ const buildProject = async (project) => {
           path.join(__dirname, `../templates/base`),
           capitalizedName
         )
-      }
       break
+      }
 
     case 'Admin':
       {
