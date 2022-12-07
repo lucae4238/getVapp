@@ -26,6 +26,6 @@ const { buildProject } = require('../src');
       },
     }
   ])
-  console.log("Creating a new VT APP")
+  console.log("Creating a new VT APP...")
   await buildProject(answers)
 })()
