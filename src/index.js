@@ -1,17 +1,17 @@
 const util = require('util')
+const fse = require('fs-extra');
 const fs = require('fs')
 const path = require('path')
 const ncp = util.promisify(require('ncp').ncp) //install files
 const replace = require('replace-in-file'); //replace myApp -> actual app name
 const fmtjson = require('fmtjson') //formating
-const chalk = require('chalk');
-const warning = chalk.magenta; // Orange color
+const chalk = require('chalk'); //console coloring
+const magenta = chalk.magenta; // Orange color
 
+//react files
+const reactComponentFile = "import React from 'react' \n \ninterface MyAppProps { \n \n} \n \nexport const MyApp: React.FC<MyAppProps> = ({ }) => { \n \treturn ( \n \t \t<> \n \t \t \t<div>hello</div> \n \t \t</> \n \t); \n}; \n \nexport default MyApp \n "
+const exportReactFile = `import MyApp from  './components/MyApp \nexport default MyApp`
 
-
-// dynamicProduct (camelCase)
-// dynamic-product (dashed)
-// Dynamic Product (capitalized)
 
 
 // required for npm publish
@@ -24,9 +24,20 @@ const renameGitignore = (projectName) => {
   }
 }
 
+const createReactFiles = async (capitalizedName, capitalizedCamelCase, files) => {
+  await fse.outputFile(`${capitalizedName}/react/components/${capitalizedCamelCase}/index.tsx`, reactComponentFile);
+  await fse.outputFile(`${capitalizedName}/react/${capitalizedCamelCase}.tsx`, exportReactFile);
+
+  files.push(`${capitalizedName}/react/${capitalizedCamelCase}.tsx`)
+}
+
 const buildProject = async (project) => {
   const { name, type, additionalReactFolders } = project
 
+  // dynamicProduct (camelCase)
+  // dynamicProduct (camelCase)
+  // DynamicProduct (capitalized camelCase)
+  // Dynamic Product (capitalized)
   const camelCase = name.split('-').reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1));
   const dashedName = name
   const capitalizedCamelCase = camelCase[0].toUpperCase() + camelCase.slice(1)
@@ -54,16 +65,6 @@ const buildProject = async (project) => {
 
 
   switch (type) {
-
-    case 'Empty':
-      {
-        await ncp(
-          path.join(__dirname, `../templates/base`),
-          capitalizedName
-        )
-      break
-      }
-
     case 'Admin':
       {
         await ncp(
@@ -140,8 +141,10 @@ const buildProject = async (project) => {
         path.join(__dirname, `../templates/advancedReactFolders`),
         capitalizedName
       )
+      await createReactFiles(capitalizedName, capitalizedCamelCase, files)
     }
   }
+
   const options = {
     files,
     //Replacement to make (string or regex) 
@@ -149,13 +152,16 @@ const buildProject = async (project) => {
     to: [capitalizedCamelCase, capitalizedName, dashedName, camelCase, JSON.stringify(builders), JSON.stringify(dependencies)],
   };
   await replace(options)
+
+  //format json
   await fmtjson([
-    `./${capitalizedName}/manifest.json`
+    `./${capitalizedName}/manifest.json`,
   ], {
     sort: false,
   })
   renameGitignore(capitalizedName)
-  console.log(`\n Done! We suggest that you begin typing: \n \n -${warning('cd')} ${capitalizedName} \n -${warning('code .')} \n \n`)
+
+  console.log(`\nDone! We suggest that you begin typing: \n \n -${magenta('cd')} ${capitalizedName} \n -${magenta('code .')} \n \n`)
 }
 
 module.exports = { buildProject } 
