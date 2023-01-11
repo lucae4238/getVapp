@@ -10,12 +10,19 @@ const { buildProject } = require('../src');
       name: 'name',
       default: 'my-app',
     },
-    {
+/*     {
       type: 'list',
       message: 'App Type:',
       name: 'type',
       choices: ['Store', 'Admin', 'Service', 'My Account Plugin','Pixel', 'Empty'],
       default: 'Application',
+    }, */
+    {
+      type: 'checkbox',
+      message: 'App Type:',
+      name: 'type',
+      choices: ['Store', 'Admin', 'Service', 'My Account Plugin','Pixel', 'Empty'],
+      default:[ 'Store'],
     },
     {
       type: 'confirm',

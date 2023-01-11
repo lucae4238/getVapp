@@ -6,6 +6,7 @@ const ncp = util.promisify(require('ncp').ncp) //install files
 const replace = require('replace-in-file'); //replace myApp -> actual app name
 const fmtjson = require('fmtjson') //formating
 const chalk = require('chalk'); //console coloring
+const { getBuilders } = require('./utils');
 const magenta = chalk.magenta; // Orange color
 
 //react files
@@ -33,6 +34,11 @@ const createReactFiles = async (capitalizedName, capitalizedCamelCase, files) =>
 
 const buildProject = async (project) => {
   const { name, type, additionalReactFolders } = project
+  //BEFORE => type : String = 'Store'
+  //AFter => type : String[] = ['Store', 'Admin']
+
+
+  // return console.log('type', type)
 
   // dynamicProduct (camelCase)
   // dynamicProduct (camelCase)
@@ -43,25 +49,26 @@ const buildProject = async (project) => {
   const capitalizedCamelCase = camelCase[0].toUpperCase() + camelCase.slice(1)
   const capitalizedName = dashedName.split("-").map(item => item[0].toUpperCase() + item.slice(1)).join(" ")
 
-  const builders = {
-    "messages": "1.x",
-    "docs": "0.x"
-  }
-  const dependencies = {
-    "vtex.styleguide": "9.x",
-    "vtex.css-handles": "0.x",
-  }
-  const files = [
-    `${capitalizedName}/*.md`,
-    `${capitalizedName}/docs/README.md`,
-    `${capitalizedName}/*.json`,
-    `${capitalizedName}/public/metadata/messages/*.json`,
-    `${capitalizedName}/public/metadata/licenses/*.md`,
-  ]
-  await ncp(
-    path.join(__dirname, `../templates/base`),
-    capitalizedName
-  )
+  const builders = getBuilders(types)
+  // const builders = {
+  //   "messages": "1.x",
+  //   "docs": "0.x"
+  // }
+  // const dependencies = {
+  //   "vtex.styleguide": "9.x",
+  //   "vtex.css-handles": "0.x",
+  // }
+  // const files = [
+  //   `${capitalizedName}/*.md`,
+  //   `${capitalizedName}/docs/README.md`,
+  //   `${capitalizedName}/*.json`,
+  //   `${capitalizedName}/public/metadata/messages/*.json`,
+  //   `${capitalizedName}/public/metadata/licenses/*.md`,
+  // ]
+  // await ncp(
+  //   path.join(__dirname, `../templates/base`),
+  //   capitalizedName
+  // )
 
 
   switch (type) {
