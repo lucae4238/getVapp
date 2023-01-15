@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@types/async@^3.2.16":
+  "integrity" "sha512-jnlGp5Z/cAZ7JVYyLnSDuYJ+YyYm0o2yzL8Odv6ckWmGMow3j/P/wgfziybB044cXXA93lEuymJyxVR8Iz2amQ=="
+  "resolved" "https://registry.npmjs.org/@types/async/-/async-3.2.16.tgz"
+  "version" "3.2.16"
+
 "aglob@^3.0.1", "aglob@^3.0.2":
   "integrity" "sha512-0khk6p36zn0NbYAMtNov7o4VQpWOZChVt+cQHIEb0KSqxNn5hvGU2+pPI5+6vydUhe8W3ZxREMcpkAmMEi8p9Q=="
   "resolved" "https://registry.npmjs.org/aglob/-/aglob-3.0.2.tgz"
@@ -48,6 +53,11 @@
   "integrity" "sha512-IprjuAy/4PK4725/aT7OAKOY+eih9lw1jCN8VmVtyarxQqoyIy4ijN2Ev5y9YZu4hXb4q9B7q+3DtkvPlDwvZQ=="
   "resolved" "https://registry.npmjs.org/asleep/-/asleep-1.0.3.tgz"
   "version" "1.0.3"
+
+"async@^3.2.4":
+  "integrity" "sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ=="
+  "resolved" "https://registry.npmjs.org/async/-/async-3.2.4.tgz"
+  "version" "3.2.4"
 
 "balanced-match@^1.0.0":
   "integrity" "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="

@@ -44,7 +44,7 @@ export default new Service({
   clients,
   routes: {
     // `status` is the route ID from service.json. It maps to an array of middlewares (or a single handler).
-    MYAPP: method({
+    myApp: method({
       GET: [status],
     }),
   },
