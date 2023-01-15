@@ -10,18 +10,17 @@ const { buildProject } = require('../src');
       name: 'name',
       default: 'my-app',
     },
-/*     {
-      type: 'list',
-      message: 'App Type:',
-      name: 'type',
-      choices: ['Store', 'Admin', 'Service', 'My Account Plugin','Pixel', 'Empty'],
-      default: 'Application',
-    }, */
     {
       type: 'checkbox',
       message: 'App Type:',
-      name: 'type',
+      name: 'selectedTypes',
       choices: ['Store', 'Admin', 'Service', 'My Account Plugin','Pixel', 'Empty'],
+      validate: (current) => {
+        if(!current.length) return "Please select at least one option. Press Space to continue"
+        if(current.length> 1 && current.includes("Empty")) return "Cant have 'Empty' and other options.Press Space to continue"
+        return true
+
+      },
       default:[ 'Store'],
     },
     {
@@ -29,7 +28,8 @@ const { buildProject } = require('../src');
       name: 'additionalReactFolders',
       message: 'Do you want additional React folders?',
       when: function (answers) {
-        return !(['Empty', 'Service', 'Pixel'].includes(answers.type))
+        const shouldNotRenderOptions = ['Empty', 'Service', 'Pixel']
+        return answers.selectedTypes.some(item => !(shouldNotRenderOptions.includes(item)))
       },
     }
   ])

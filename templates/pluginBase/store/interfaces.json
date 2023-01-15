@@ -1,9 +1,1 @@
-{
-  "my-account-link.my-app-link": {
-    "component": "MyAppLink"
-  },
-  "my-account-page.my-app-page": {
-    "component": "MyAppPage"
-  }
-
-}
+INTERFACES
