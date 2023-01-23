@@ -7,7 +7,7 @@ const handler = {
   'Store': {
     dependencies: [],
     builders: [["store", "0.x"]],
-    interfaces: { "my-app": { "component": "myApp" } },
+    interfaces: { "my-app": { "component": "MyApp" } },
     plugins: {},
     files: [
       `/store/*.json`,
